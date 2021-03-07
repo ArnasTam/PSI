@@ -6,12 +6,15 @@ class Tasks extends StatelessWidget {
   Tasks({
     Key key,
   }) : super(key: key);
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xffffffff),
       body: Stack(
         children: <Widget>[
+
+          // The purple box in the top
           Transform.translate(
             offset: Offset(0.0, -24.0),
             child: Container(
@@ -23,17 +26,8 @@ class Tasks extends StatelessWidget {
               ),
             ),
           ),
-          Transform.translate(
-            offset: Offset(0.0, -24.0),
-            child: Container(
-              width: 375.0,
-              height: 164.0,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(56.0),
-                color: const Color(0xff6e00ff),
-              ),
-            ),
-          ),
+
+          // The box for task
           Transform.translate(
             offset: Offset(28.0, 185.0),
             child: Container(
@@ -46,11 +40,13 @@ class Tasks extends StatelessWidget {
               ),
             ),
           ),
+
+          // Circle for checking the task if its completed
           Transform.translate(
-            offset: Offset(283.0, 185.0),
+            offset: Offset(283.0, 184.0),
             child: Container(
               width: 65.0,
-              height: 66.0,
+              height: 65.0,
               decoration: BoxDecoration(
                 borderRadius:
                     BorderRadius.all(Radius.elliptical(9999.0, 9999.0)),
@@ -59,6 +55,9 @@ class Tasks extends StatelessWidget {
               ),
             ),
           ),
+
+          
+          // Text in the purple box "Tasks"
           Transform.translate(
             offset: Offset(42.0, 52.0),
             child: SizedBox(
@@ -76,19 +75,8 @@ class Tasks extends StatelessWidget {
               ),
             ),
           ),
-          Transform.translate(
-            offset: Offset(283.0, 184.0),
-            child: Container(
-              width: 65.0,
-              height: 66.0,
-              decoration: BoxDecoration(
-                borderRadius:
-                    BorderRadius.all(Radius.elliptical(9999.0, 9999.0)),
-                color: const Color(0x40ffffff),
-                border: Border.all(width: 1.0, color: const Color(0x40707070)),
-              ),
-            ),
-          ),
+
+          // the menu button (three bars)
           Transform.translate(
             offset: Offset(300.0, 66.0),
             child:
@@ -190,6 +178,8 @@ class Tasks extends StatelessWidget {
               ),
             ),
           ),
+          
+          // The text of a task itself
           Transform.translate(
             offset: Offset(54.0, 198.0),
             child: Text(
@@ -209,6 +199,8 @@ class Tasks extends StatelessWidget {
               textAlign: TextAlign.left,
             ),
           ),
+
+          // the difficulty
           Transform.translate(
             offset: Offset(54.0, 225.0),
             child: Text(
@@ -221,6 +213,8 @@ class Tasks extends StatelessWidget {
               textAlign: TextAlign.left,
             ),
           ),
+          
+          // the arrow next to the task
           Transform.translate(
             offset: Offset(215.0, 203.0),
             child:
