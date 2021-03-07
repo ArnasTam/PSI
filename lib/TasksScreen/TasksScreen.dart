@@ -166,7 +166,7 @@ class _TasksScreenState extends State<TasksScreen> {
         Transform.translate(
           offset: Offset(20, 145),
           child: Container(
-            padding: const EdgeInsets.only(right: 10, top: 15),
+            padding: const EdgeInsets.only(right: 10, top: 15, bottom: 50),
             width: 327,
             height: 627,
             child: Expanded(
@@ -176,6 +176,15 @@ class _TasksScreenState extends State<TasksScreen> {
                   TaskBox(title: 'Run 1 km', diff: "MEDIUM"),
                   TaskBox(),
                   TaskBox(),
+                  TaskBox(),
+                  TaskBox(),
+                  TaskBox(),
+                  TaskBox(),
+                   TaskBox(),
+                    TaskBox(),
+                     TaskBox(),
+                      TaskBox(),
+
                 ],
               ),
             ),
