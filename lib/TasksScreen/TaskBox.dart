@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class TaskBox extends StatelessWidget {
-  String title;
-  String diff;
+  final String title;
+  final String diff;
 
   TaskBox({this.title, this.diff});
 

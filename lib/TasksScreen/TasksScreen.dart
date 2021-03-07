@@ -3,6 +3,8 @@ import 'package:adobe_xd/adobe_xd.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import 'TaskAddScreen.dart';
+
 class TasksScreen extends StatefulWidget {
   @override
   _TasksScreenState createState() => _TasksScreenState();
@@ -180,11 +182,10 @@ class _TasksScreenState extends State<TasksScreen> {
                   TaskBox(),
                   TaskBox(),
                   TaskBox(),
-                   TaskBox(),
-                    TaskBox(),
-                     TaskBox(),
-                      TaskBox(),
-
+                  TaskBox(),
+                  TaskBox(),
+                  TaskBox(),
+                  TaskBox(),
                 ],
               ),
             ),
@@ -195,6 +196,15 @@ class _TasksScreenState extends State<TasksScreen> {
           bottom: 25,
           right: 25,
           child: GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => TaskAddScreen()
+                ),
+
+              );
+            },
             child: Container(
               width: 50,
               height: 50,
