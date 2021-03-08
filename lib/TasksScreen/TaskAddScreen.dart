@@ -19,7 +19,13 @@ class _TaskAddScreenState extends State<TaskAddScreen> {
       backgroundColor: const Color(0xffffffff),
       body: Transform.translate(
         offset: Offset(0.0, 0.0),
-        child: Container(
+        child: Container(         
+          width: 375.0,
+          height: 812.0,
+          decoration: BoxDecoration(
+           color: const Color(0x0d6e00ff),
+           border: Border.all(width: 1.0, color: const Color(0xff000000)),
+          ),
           padding: const EdgeInsets.only(left:15, right: 35, top: 45),
           child: Column(
             children: [
@@ -113,13 +119,6 @@ class _TaskAddScreenState extends State<TaskAddScreen> {
                 ),
               ),
             ],
-          ),
-
-          width: 375.0,
-          height: 812.0,
-          decoration: BoxDecoration(
-           color: const Color(0x0d6e00ff),
-           border: Border.all(width: 1.0, color: const Color(0xff000000)),
           ),
         ),
       ),
