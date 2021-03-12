@@ -1,3 +1,4 @@
+
 import 'package:TaskM/TasksScreen/TaskBox.dart';
 import 'package:adobe_xd/adobe_xd.dart';
 import 'package:flutter/material.dart';
@@ -6,14 +7,37 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'TaskAddScreen.dart';
 
 class TasksScreen extends StatefulWidget {
+  List<Task> allTasks;
+  
+  TasksScreen(List<Task> tasks){
+    this.allTasks = tasks;
+  }
+
   @override
   _TasksScreenState createState() => _TasksScreenState();
 }
 
 class _TasksScreenState extends State<TasksScreen> {
+
+  _navigateAndDisplaySelection(BuildContext context, Task task) async {
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => TaskAddScreen(task: task)),
+    );
+
+    //below you can get your result and update the view with setState
+    //changing the value if you want, i just wanted know if i have to  
+    //update, and if is true, reload state
+
+    if (result) {
+      setState(() {});
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       backgroundColor: const Color(0xffffffff),
       body: Stack(
         children: <Widget>[
@@ -165,28 +189,20 @@ class _TasksScreenState extends State<TasksScreen> {
           ),
         ),
 
-        Transform.translate(
+        Transform.translate(         
           offset: Offset(20, 145),
           child: Container(
             padding: const EdgeInsets.only(right: 10, top: 15, bottom: 50),
             width: 327,
             height: 627,
             child: Expanded(
-              child: ListView(
+              child:             
+              ListView.builder(
                 padding: const EdgeInsets.only(bottom: 100),
-                children: [             
-                  TaskBox(title: 'Run 1 km', diff: "MEDIUM"),
-                  TaskBox(),
-                  TaskBox(),
-                  TaskBox(),
-                  TaskBox(),
-                  TaskBox(),
-                  TaskBox(),
-                  TaskBox(),
-                  TaskBox(),
-                  TaskBox(),
-                  TaskBox(),
-                ],
+                itemCount: widget.allTasks.length,
+                itemBuilder: (BuildContext ctxt, int index) {
+                  return new TaskBox(widget.allTasks[index]);
+                }
               ),
             ),
           ),
@@ -196,14 +212,11 @@ class _TasksScreenState extends State<TasksScreen> {
           bottom: 25,
           right: 25,
           child: GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => TaskAddScreen()
-                ),
-
-              );
+            onTap: () async {
+              Task task = new Task.empty();
+              widget.allTasks.add(task);       
+              _navigateAndDisplaySelection(context, task);
+              
             },
             child: Container(
               width: 50,
@@ -221,6 +234,7 @@ class _TasksScreenState extends State<TasksScreen> {
       ), 
     );
   }
+  
 }
 
 const String _svg_it2fzi =

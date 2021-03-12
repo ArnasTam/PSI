@@ -1,11 +1,49 @@
 import 'package:flutter/material.dart';
 
-class TaskBox extends StatelessWidget {
-  final String title;
-  final String diff;
+enum Difficulty {
+  Easy,
+  Medium,
+  Hard,
+  None,
+}
 
-  TaskBox({this.title, this.diff});
+class Task {
+  int id;
+  String title;
+  String description;
+  DateTime startDate;
+  DateTime endDate;
+  Difficulty diff;
+  bool isCompleted;
 
+  Task(int id,String title, String desciption, DateTime startDate, DateTime endDate, Difficulty diff, bool completed) {
+    this.id = id;
+    this.title = title;
+    this.description = description;
+    this.startDate = startDate;
+    this.endDate = endDate;
+    this.diff = diff;
+    this.isCompleted = completed;
+  }
+
+  Task.empty(){
+    this.diff = Difficulty.None;
+  }
+}
+
+class TaskBox extends StatefulWidget {
+  Task task;
+
+  TaskBox(Task tsk){
+    this.task = tsk;
+  }
+
+  @override
+  _TaskBoxState createState() => _TaskBoxState();
+
+}
+
+class _TaskBoxState extends State<TaskBox> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -29,30 +67,30 @@ class TaskBox extends StatelessWidget {
                     padding: const EdgeInsets.only(bottom:5),
                     width: 197,
                     child: Text(     
-                    title ?? 'Unnamed',
-                    style: TextStyle(
-                      fontFamily: 'Microsoft YaHei UI',
-                      fontSize: 20,
-                      color: const Color(0xff000000),
-                      shadows: [
-                        Shadow(
-                          color: const Color(0x30000000),
-                          offset: Offset(0, 3),
-                          blurRadius: 6,
-                        )
-                      ],
-                    ),
-                    textAlign: TextAlign.left,
+                      widget.task.title ?? 'Unnamed',
+                      style: TextStyle(
+                        fontFamily: 'Microsoft YaHei UI',
+                        fontSize: 20,
+                        color: const Color(0xff000000),
+                        shadows: [
+                          Shadow(
+                            color: const Color(0x30000000),
+                            offset: Offset(0, 3),
+                            blurRadius: 6,
+                          )
+                        ],
+                      ),
+                      textAlign: TextAlign.left,
                     ),
                   ), 
                   Container(
                     width: 197,
                     child: Text(     
-                    diff ?? 'DIFFICULTY NOT SELECTED',
+                     widget.task.diff.toString().replaceAll("Difficulty.", ""),
                     style: TextStyle(
                       fontFamily: 'Microsoft YaHei UI',
-                      fontSize: 10,
-                      color: const Color(0xffffaa00),           
+                      fontSize: 12,                 
+                      color: getColorFromDiff(widget.task.diff)        
                     ),
                     textAlign: TextAlign.left,
                     ),
@@ -67,12 +105,33 @@ class TaskBox extends StatelessWidget {
       ),
     );  
   }
+  
+  Color getColorFromDiff(Difficulty diff){
+    Color c;
+
+    switch (diff) {
+      case Difficulty.Easy:
+        c = Colors.green;
+        break;
+      case Difficulty.Medium:
+        c = const Color(0xffffaa00);
+        break;
+      case Difficulty.Hard:
+        c = Colors.red;
+        break;
+      default:
+      c = Colors.grey;
+    }
+
+    return c;
+  }
 }
 
 class TaskCheckBox extends StatefulWidget {
   @override
   _TaskCheckBoxState createState() => _TaskCheckBoxState();
 }
+
 
 class _TaskCheckBoxState extends State<TaskCheckBox> {
   bool is_selected = false;

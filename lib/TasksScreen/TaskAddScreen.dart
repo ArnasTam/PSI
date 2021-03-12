@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 
-class TaskAddScreen extends StatefulWidget {
-  final String description;
-  final String diff;
-  final String title;
-  final bool adding;
+import 'TaskBox.dart';
 
-  TaskAddScreen({this.description, this.diff, this.title, this.adding});
+class TaskAddScreen extends StatefulWidget {
+
+  Task task;
+  TaskAddScreen({this.task});
 
   @override
   _TaskAddScreenState createState() => _TaskAddScreenState();
 }
 
 class _TaskAddScreenState extends State<TaskAddScreen> {
+  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,17 +34,19 @@ class _TaskAddScreenState extends State<TaskAddScreen> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      Navigator.pop(context);
+                      Navigator.pop(context, true);
                     },
                     child: Container(
                       margin: const EdgeInsets.only(right: 15),
                       child: new Icon(Icons.arrow_back_ios_rounded, color: Colors.grey, size: 35), 
                     )
+                    
                   ),
                   
                   Expanded(
                     child: TextFormField(       
-                      initialValue: widget.title ?? '',     
+                      initialValue: widget.task.title ?? '',
+                      onChanged: (newText) { widget.task.title = newText; },     
                       style: TextStyle(fontFamily: 'Microsoft YaHei UI', fontSize: 25),                                          
                       decoration: InputDecoration(                    
                         hintText: 'Enter Task Title...',
@@ -70,15 +73,30 @@ class _TaskAddScreenState extends State<TaskAddScreen> {
                     ),
                   ),
                   Expanded(
-                    child: TextFormField( 
-                      initialValue: widget.diff ?? '',                             
-                      style: TextStyle(fontFamily: 'Microsoft YaHei UI', fontSize: 15),                                          
-                      decoration: InputDecoration(   
-                        hintText: 'Enter Difficulty...',
-                        hintStyle: TextStyle(fontFamily: 'Microsoft YaHei UI', fontSize: 15),
-                        border: InputBorder.none,
-                    ),
-                    ),
+                    child: Container(
+                        padding: const EdgeInsets.only(bottom: 6),
+                        child: DropdownButtonFormField<Difficulty>(
+                        decoration: InputDecoration(                      
+                          hintText: 'Enter Task Title...',
+                          hintStyle: TextStyle(fontFamily: 'Microsoft YaHei UI', fontSize: 25),
+                          border: InputBorder.none,
+                        ),             
+                        value: widget.task.diff,
+                        onChanged: (Difficulty newValue) {
+                          setState(() {
+                            widget.task.diff = newValue;       
+                          });
+                        },
+                        items: Difficulty.values.map((Difficulty classType) {
+                          return DropdownMenuItem<Difficulty>(
+                            value: classType,
+                            child: Text(                 
+                              classType.toString().replaceAll("Difficulty.", ""),                 
+                            )
+                          );
+                        }).toList(),
+                      ),
+                    ),             
                   ),
                 ],
               ),                
@@ -103,7 +121,8 @@ class _TaskAddScreenState extends State<TaskAddScreen> {
                     Container(                        
                       child: Expanded(                        
                         child: TextFormField(
-                          initialValue: widget.description ?? '',
+                          initialValue: widget.task.description ?? '',
+                          onChanged: (newText) { widget.task.description = newText; },
                           maxLines: 4,                              
                           style: TextStyle(fontFamily: 'Microsoft YaHei UI', fontSize: 15),                                          
                           decoration: InputDecoration( 
@@ -124,4 +143,5 @@ class _TaskAddScreenState extends State<TaskAddScreen> {
       ),
     );
   }
+  
 }
